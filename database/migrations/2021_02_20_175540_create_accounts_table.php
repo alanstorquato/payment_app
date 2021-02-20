@@ -16,8 +16,9 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['user','store']);
-            $table->varchar('document', 255);
+            $table->string('document', 255);
             $table->double('balance', 10, 2);
+            $table->integer('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')

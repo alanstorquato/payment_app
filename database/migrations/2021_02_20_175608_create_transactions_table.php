@@ -16,7 +16,11 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->decimal('value', 10, 2);
+            $table->integer('payer_id');
+            $table->integer('payee_id');
             $table->timestamps();
+
+
             $table->foreign('payer_id')
             ->references('id')
             ->on('accounts');
