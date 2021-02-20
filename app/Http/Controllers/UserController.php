@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AccountController extends Controller
+class UserController extends Controller
 {
     public function index(){
         return response()->json(
-            Account::query()->orderBy('document')->get(),
+            User::query()->orderBy('name')->get(),
             Response::HTTP_OK
         ); 
     }
@@ -18,7 +18,7 @@ class AccountController extends Controller
     public function create (Request $request)
     {   
         return response()->json( 
-            Account::create($request->all()), 
+            User::create($request->all()), 
             Response::HTTP_CREATED
         );
 

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/teste', function(){
-    return  response()->json(
-        ['ola'=>'teste']
-    );
-});
+Route::get('/account', [AccountController::class, 'index']);
+Route::post('/account', [AccountController::class, 'create']);
+
+Route::get('/transaction', [TransactionController::class, 'index']);
+Route::post('/transaction', [TransactionController::class, 'create']);
+
+Route::get('/user', [UserController::class, 'index']);
+Route::post('/user', [UserController::class, 'create']);
+
