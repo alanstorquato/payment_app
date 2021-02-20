@@ -1,0 +1,52 @@
+version: '3'
+
+volumes:
+  postgres-data:
+    driver: local
+
+  redis-data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:11
+    container_name: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=payment
+      - POSTGRES_USER=root
+
+  cache:
+    image: redis:4.0
+    container_name: redis
+    command: --appendonly yes
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+
+  app:
+    image: ambientum/php:7.3-nginx
+    container_name: app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8080:8080"
+      - "8083:8083"
+    links:
+      - postgres
+      - cache
+
+  # Laravel Queues
+  queue:
+    image: ambientum/php:7.3
+    container_name: queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    links:
+      - cache
