@@ -15,7 +15,14 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', ['user','store']);
+            $table->varchar('document', 255);
+            $table->double('balance', 10, 2);
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

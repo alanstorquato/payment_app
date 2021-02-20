@@ -15,7 +15,14 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->decimal('value', 10, 2);
             $table->timestamps();
+            $table->foreign('payer_id')
+            ->references('id')
+            ->on('accounts');
+            $table->foreign('payee_id')
+            ->references('id')
+            ->on('accounts');
         });
     }
 
