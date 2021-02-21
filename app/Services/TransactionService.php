@@ -4,16 +4,23 @@ namespace App\Services;
 
 use App\Jobs\TransactionMadeMessage;
 use App\Models\{Account, Transaction};
+
+use App\Services\AuthorizeTransaction;
+
 use Illuminate\Support\Facades\DB;
 
 class TransactionService
 {
 
+    protected $authorizeTransaction;
+
+    public function __construct(AuthorizeTransaction $authorizeTransaction)
+    {
+        $this->authorizeTransaction = $authorizeTransaction;
+    }
+
     public function transaction($value, $payerId, $payeeId)
     {
-
-        $authorizeTransaction = new AuthorizeTransaction();
-
         $payer = Account::find($payerId);
         $payee = Account::find($payeeId);
 
@@ -31,7 +38,7 @@ class TransactionService
                     'payee_id' => $payee->id,
             ]);
 
-            if ($authorizeTransaction->verifyAuthorizeTransaction()) {
+            if ($this->authorizeTransaction->verifyAuthorizeTransaction()) {
         
                 DB::transaction(function () use ($transaction, $payer, $payee){
                     $transaction->authorized = true;

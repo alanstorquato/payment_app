@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Services\TransactionService;
+use App\Services\AuthorizeTransaction;
 use Tests\TestCase;
 
 class TransactionServiceTest extends TestCase
@@ -47,7 +48,10 @@ class TransactionServiceTest extends TestCase
             'user_id' => $user2->id
         ]);
 
-        $this->transactionService = new TransactionService();
+        $authorizeTransaction = $this->createMock(AuthorizeTransaction::class);
+        $authorizeTransaction->method('verifyAuthorizeTransaction')->willReturn(true);
+        
+        $this->transactionService = new TransactionService($authorizeTransaction);
     }
 
     public function testInsertTransactionTable()

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Services\TransactionService;
-use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,7 +26,7 @@ class TransactionController extends Controller
                 $request->payee_id
             );
 
-        }catch(Exception $e){
+        }catch(\Exception $e){
             return response()->json( 
                 ['error' => $e->getMessage()], 
                 Response::HTTP_METHOD_NOT_ALLOWED
