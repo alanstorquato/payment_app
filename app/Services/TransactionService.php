@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\TransactionMadeMessage;
 use App\Models\{Account, Transaction};
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +39,8 @@ class TransactionService
                     $payer->save();
                     $payee->save();
                 });
+
+                TransactionMadeMessage::dispatch();
 
                 return $this->transaction;
             }
