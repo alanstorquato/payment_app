@@ -38,6 +38,8 @@ class TransactionService
                     'payee_id' => $payee->id,
             ]);
 
+            $transaction->save();
+
             if ($this->authorizeTransaction->verifyAuthorizeTransaction()) {
         
                 DB::transaction(function () use ($transaction, $payer, $payee){
