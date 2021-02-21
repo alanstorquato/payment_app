@@ -4,11 +4,9 @@ namespace Tests\Feature\Controller;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use App\Services\TransactionService;
-use App\Models\Account;
-use App\Models\Transaction;
-use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Account;
+use App\Models\User;
 use Tests\TestCase;
 
 class TransactionControllerTest extends TestCase
@@ -51,8 +49,6 @@ class TransactionControllerTest extends TestCase
 
     public function testGetTransactionStatusCodeSuccess()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->get('/api/transaction');
 
         $response->assertStatus(Response::HTTP_OK);
@@ -65,8 +61,6 @@ class TransactionControllerTest extends TestCase
             'payer_id' => $this->userAccount->id,
             'payee_id' => $this->userStore->id
         ];
-
-        $this->withoutExceptionHandling();
 
         $response = $this->post('/api/transaction', $this->post);
 
