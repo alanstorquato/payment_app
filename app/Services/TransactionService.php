@@ -11,6 +11,7 @@ class TransactionService
 
     public function transaction($value, $payerId, $payeeId)
     {
+
         $authorizeTransaction = new AuthorizeTransaction();
 
         $payer = Account::find($payerId);
@@ -24,26 +25,26 @@ class TransactionService
             $payer->balance = $payer->balance - $value;
             $payee->balance = $payee->balance + $value;
 
+            $transaction =  Transaction::create([
+                    'value' => $value,
+                    'payer_id' => $payer->id,
+                    'payee_id' => $payee->id,
+            ]);
 
             if ($authorizeTransaction->verifyAuthorizeTransaction()) {
-                DB::transaction(function () use ($payer, $payee, $value) {
-
-                    $this->transaction =  Transaction::create(
-                        [
-                            'value' => $value,
-                            'payer_id' => $payer->id,
-                            'payee_id' => $payee->id
-                        ]
-
-                    );
+        
+                DB::transaction(function () use ($transaction, $payer, $payee){
+                    $transaction->authorized = true;
+                    $transaction->save();
                     $payer->save();
                     $payee->save();
-                });
-               
+                }, 2);
+      
+           
                 TransactionMadeMessage::dispatch();
-
-                return $this->transaction;
+                
             }
+            return $transaction;
         }
 
         throw new \Exception('Valor da transferencia maior que saldo do pagador');
