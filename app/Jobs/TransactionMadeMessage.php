@@ -16,6 +16,10 @@ class TransactionMadeMessage implements ShouldQueue
 
     protected $sendAuthorizeTransactionMessage;
 
+
+    public $backoff = 10;
+
+    public $tries = 3;
     /**
      * Create a new job instance.
      *
@@ -33,6 +37,7 @@ class TransactionMadeMessage implements ShouldQueue
      */
     public function handle()
     {
+        throw new \Exception();
         return $this->sendAuthorizeTransactionMessage->sendMessage();
     }
 }
