@@ -15,7 +15,7 @@ class AccountController extends Controller
         ); 
     }
 
-    public function create (Request $request)
+    public function store (Request $request)
     {   
         return response()->json( 
             Account::create($request->all()), 
@@ -23,4 +23,5 @@ class AccountController extends Controller
         );
 
     }
+
 }

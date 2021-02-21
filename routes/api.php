@@ -22,11 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/account', [AccountController::class, 'index']);
-Route::post('/account', [AccountController::class, 'create']);
+Route::post('/account', [AccountController::class, 'store']);
 
 Route::get('/transaction', [TransactionController::class, 'index']);
-Route::post('/transaction', [TransactionController::class, 'create']);
+Route::post('/transaction', [TransactionController::class, 'store']);
 
 Route::get('/user', [UserController::class, 'index']);
-Route::post('/user', [UserController::class, 'create']);
+Route::post('/user', [UserController::class, 'store']);
 

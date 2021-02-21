@@ -17,7 +17,7 @@ class TransactionController extends Controller
         ); 
     }
 
-    public function create (Request $request, TransactionService $transactionService)
+    public function store (Request $request, TransactionService $transactionService)
     {   
         try {
 
