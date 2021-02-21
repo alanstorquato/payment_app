@@ -42,7 +42,7 @@ class TransactionServiceTest extends TestCase
 
         $this->userStore =  Account::create([
             'type' => 'store',
-            'document' => '01234567890',
+            'document' => '73003359000196',
             'balance' => 2000,
             'user_id' => $user2->id
         ]);

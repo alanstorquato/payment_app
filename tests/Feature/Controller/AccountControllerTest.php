@@ -52,7 +52,7 @@ class AccountControllerTest extends TestCase
     {
         $user = Account::create([
             "type" => "user",
-            "document" => "01234567890",
+            "document" => "0124567890",
             "balance" => 2000,
             "user_id" => $this->user->id
         ]);
@@ -62,7 +62,7 @@ class AccountControllerTest extends TestCase
             'accounts',
             [
                 "type" => "user",
-                "document" => "01234567890",
+                "document" => "0124567890",
                 "balance" => 2000,
                 "user_id" => $this->user->id
             ]
@@ -73,7 +73,7 @@ class AccountControllerTest extends TestCase
     {
         $user = Account::create([
             "type" => "store",
-            "document" => "01234567890",
+            "document" => "0234567890",
             "balance" => 2000,
             "user_id" => $this->user->id
         ]);
@@ -83,7 +83,7 @@ class AccountControllerTest extends TestCase
             'accounts',
             [
                 "type" => "store",
-                "document" => "01234567890",
+                "document" => "0234567890",
                 "balance" => 2000,
                 "user_id" => $this->user->id
             ]
