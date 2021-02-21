@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Services\SendAuthorizeTransactionMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,6 +14,8 @@ class TransactionMadeMessage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $sendAuthorizeTransactionMessage;
+
     /**
      * Create a new job instance.
      *
@@ -20,7 +23,7 @@ class TransactionMadeMessage implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $this->sendAuthorizeTransactionMessage = new SendAuthorizeTransactionMessage();
     }
 
     /**
@@ -30,6 +33,6 @@ class TransactionMadeMessage implements ShouldQueue
      */
     public function handle()
     {
-       
+        return $this->sendAuthorizeTransactionMessage->sendMessage();
     }
 }

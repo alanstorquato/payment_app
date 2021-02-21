@@ -39,7 +39,7 @@ class TransactionService
                     $payer->save();
                     $payee->save();
                 });
-
+               
                 TransactionMadeMessage::dispatch();
 
                 return $this->transaction;
