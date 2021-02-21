@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Service\Feature;
 
 use App\Models\Account;
 use App\Models\Transaction;

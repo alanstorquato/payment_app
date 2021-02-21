@@ -12,7 +12,7 @@ class TransactionController extends Controller
 {
     public function index(){
         return response()->json(
-            Transaction::query()->orderBy('value')->get(),
+            Transaction::all(),
             Response::HTTP_OK
         ); 
     }
