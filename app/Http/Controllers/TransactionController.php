@@ -3,16 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostTransactionRequest;
-use App\Models\Transaction;
+use App\Repositories\AccountRepository;
+use App\Repositories\TransactionRepository;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TransactionController extends Controller
 {
-    public function index(){
+    protected $transactionRepository;
+    protected $accountRepository;
+
+    public function __construct(TransactionRepository $transactionRepository, AccountRepository $accountRepository)
+    {
+        $this->transactionRepository = $transactionRepository;
+        $this->accountRepository = $accountRepository;
+
+    }
+
+    public function index()
+    {
         return response()->json(
-            Transaction::all(),
+            $this->transactionRepository->all(),
             Response::HTTP_OK
         ); 
     }
@@ -22,8 +34,8 @@ class TransactionController extends Controller
         try {
             $transction = $transactionService->transaction(
                 $request->value,
-                $request->payer_id, 
-                $request->payee_id
+                $this->accountRepository->find($request->payer_id),
+                $this->accountRepository->find($request->payee_id) 
             );
             
         }catch(\Exception $e){
