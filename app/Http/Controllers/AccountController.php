@@ -16,21 +16,29 @@ class AccountController extends Controller
         $this->accountRepository = $accountRepository;
     }
 
+      /**
+     * @OA\Get(
+     *     tags={"accounts"},
+     *     summary="Returns a list of accounts",
+     *     description="Returns a object of accounts",
+     *     path="/api/account",
+     *     @OA\Response(response="200", description="A list with accounts"),
+     * ),
+     * 
+    */
     public function index()
     {
         return response()->json(
             $this->accountRepository->all(),
             Response::HTTP_OK
-        ); 
+        );
     }
 
-    public function store (PostAccountRequest $request)
-    {   
-        return response()->json( 
-            $this->accountRepository->create($request->all()), 
+    public function store(PostAccountRequest $request)
+    {
+        return response()->json(
+            $this->accountRepository->create($request->all()),
             Response::HTTP_CREATED
         );
-
     }
-
 }
