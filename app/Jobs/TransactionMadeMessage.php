@@ -37,7 +37,6 @@ class TransactionMadeMessage implements ShouldQueue
      */
     public function handle()
     {
-
         return $this->sendAuthorizeTransactionMessage->sendMessage();
     }
 }

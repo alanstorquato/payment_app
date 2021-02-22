@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Jobs\TransactionMadeMessage;
-use App\Models\{Account, Transaction};
+use App\Models\Account;
+use App\Models\Transaction;
 
 use App\Services\AuthorizeTransaction;
 
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionService
 {
-
     protected $authorizeTransaction;
 
     public function __construct(AuthorizeTransaction $authorizeTransaction)
@@ -20,7 +20,7 @@ class TransactionService
     }
 
     public function transaction($value, Account $payer, Account $payee)
-    {        
+    {
         if ($payer->type === 'store') {
             throw new \Exception('Lojista não pode realizar transferencia');
         }
@@ -38,8 +38,7 @@ class TransactionService
             $transaction->save();
 
             if ($this->authorizeTransaction->verifyAuthorizeTransaction()) {
-        
-                DB::transaction(function () use ($transaction, $payer, $payee){
+                DB::transaction(function () use ($transaction, $payer, $payee) {
                     $transaction->authorized = true;
                     $transaction->save();
                     $payer->save();
@@ -48,7 +47,6 @@ class TransactionService
       
            
                 TransactionMadeMessage::dispatch();
-                
             }
             return $transaction;
         }

@@ -8,14 +8,160 @@
         "/api/account": {
             "get": {
                 "tags": [
-                    "accounts"
+                    "Accoounts"
                 ],
-                "summary": "Returns a list of accounts",
-                "description": "Returns a object of accounts",
+                "description": "Returns a Collection of Accounts",
                 "operationId": "App\\Http\\Controllers\\AccountController::index",
                 "responses": {
                     "200": {
                         "description": "A list with accounts"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Accoounts"
+                ],
+                "description": "Create a Account",
+                "operationId": "App\\Http\\Controllers\\AccountController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "type",
+                                    "document",
+                                    "balance",
+                                    "user_id"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "document": {
+                                        "type": "string"
+                                    },
+                                    "balance": {
+                                        "type": "number"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "account created"
+                    }
+                }
+            }
+        },
+        "/api/transaction": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "description": "Returns a Collection of Transactions",
+                "operationId": "App\\Http\\Controllers\\TransactionController::index",
+                "responses": {
+                    "200": {
+                        "description": "A list with transactions"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "description": "Create a Transactions",
+                "operationId": "App\\Http\\Controllers\\TransactionController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "value",
+                                    "payer_id",
+                                    "payee_id"
+                                ],
+                                "properties": {
+                                    "value": {
+                                        "type": "number"
+                                    },
+                                    "payer_id": {
+                                        "type": "integer"
+                                    },
+                                    "payee_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "transactions created"
+                    },
+                    "405": {
+                        "description": "transactions not allowed"
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Returns a Collection of Users",
+                "operationId": "App\\Http\\Controllers\\UserController::index",
+                "responses": {
+                    "200": {
+                        "description": "A list with users"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Create a Users",
+                "operationId": "App\\Http\\Controllers\\UserController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "type",
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "user created"
                     }
                 }
             }
