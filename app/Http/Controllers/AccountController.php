@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\PostAccountRequest;
 
 class AccountController extends Controller
 {
@@ -15,7 +16,7 @@ class AccountController extends Controller
         ); 
     }
 
-    public function store (Request $request)
+    public function store (PostAccountRequest $request)
     {   
         return response()->json( 
             Account::create($request->all()), 

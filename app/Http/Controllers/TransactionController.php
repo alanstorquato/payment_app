@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostTransactionRequest;
 use App\Models\Transaction;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
@@ -16,16 +17,15 @@ class TransactionController extends Controller
         ); 
     }
 
-    public function store (Request $request, TransactionService $transactionService)
+    public function store (PostTransactionRequest $request, TransactionService $transactionService)
     {   
         try {
-
             $transction = $transactionService->transaction(
                 $request->value,
                 $request->payer_id, 
                 $request->payee_id
             );
-
+            
         }catch(\Exception $e){
             return response()->json( 
                 ['error' => $e->getMessage()], 

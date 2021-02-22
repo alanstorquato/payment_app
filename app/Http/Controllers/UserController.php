@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class UserController extends Controller
         ); 
     }
 
-    public function store (Request $request)
+    public function store (PostUserRequest $request)
     {   
         return response()->json( 
             User::create($request->all()), 
