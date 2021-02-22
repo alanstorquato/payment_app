@@ -56,7 +56,7 @@ class TransactionServiceTest extends TestCase
 
     public function testInsertTransactionTable()
     {
-        $transaction  = $this->transactionService->transaction(200, $this->userAccount->id, $this->userStore->id);
+        $transaction  = $this->transactionService->transaction(200, $this->userAccount, $this->userStore);
 
 
         $this->assertInstanceOf(Transaction::class, $transaction);

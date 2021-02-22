@@ -19,11 +19,8 @@ class TransactionService
         $this->authorizeTransaction = $authorizeTransaction;
     }
 
-    public function transaction($value, $payerId, $payeeId)
-    {
-        $payer = Account::find($payerId);
-        $payee = Account::find($payeeId);
-
+    public function transaction($value, Account $payer, Account $payee)
+    {        
         if ($payer->type === 'store') {
             throw new \Exception('Lojista não pode realizar transferencia');
         }
