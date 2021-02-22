@@ -59,7 +59,7 @@ class TransactionServiceTest extends TestCase
 
     public function testPerformTransactionSuccess()
     {
-        $transaction  = $this->transactionService->transaction(200, $this->userAccount->id, $this->userStore->id);
+        $transaction  = $this->transactionService->transaction(200, $this->userAccount, $this->userStore);
         $this->assertEquals(200, $transaction->value);
         $this->assertEquals($this->userAccount->id, $transaction->payer_id);
         $this->assertEquals($this->userStore->id, $transaction->payee_id);
@@ -67,7 +67,7 @@ class TransactionServiceTest extends TestCase
 
     public function testTransactionValues()
     {
-        $transaction  = $this->transactionService->transaction(200, $this->userAccount->id, $this->userStore->id);
+        $transaction  = $this->transactionService->transaction(200, $this->userAccount, $this->userStore);
         $this->assertEquals(1800, Account::find($this->userAccount->id)->balance);
         $this->assertEquals(2200, Account::find($this->userStore->id)->balance);
     }
@@ -77,7 +77,7 @@ class TransactionServiceTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Valor da transferencia maior que saldo do pagador');
 
-        $this->transactionService->transaction(3000, $this->userAccount->id, $this->userStore->id);
+        $this->transactionService->transaction(3000, $this->userAccount, $this->userStore);
 
     }
 
@@ -86,7 +86,7 @@ class TransactionServiceTest extends TestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Lojista não pode realizar transferencia');
 
-        $this->transactionService->transaction(3000, $this->userStore->id, $this->userAccount->id);
+        $this->transactionService->transaction(3000, $this->userStore, $this->userAccount);
 
     }
 }
