@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\PostAccountRequest;
+use App\Repositories\AccountRepository;
 
 class AccountController extends Controller
 {
-    public function index(){
+    protected $accountRepository;
+
+    public function __construct(AccountRepository $accountRepository)
+    {
+        $this->accountRepository = $accountRepository;
+    }
+
+    public function index()
+    {
         return response()->json(
-            Account::query()->orderBy('document')->get(),
+            $this->accountRepository->all(),
             Response::HTTP_OK
         ); 
     }
@@ -19,7 +27,7 @@ class AccountController extends Controller
     public function store (PostAccountRequest $request)
     {   
         return response()->json( 
-            Account::create($request->all()), 
+            $this->accountRepository->create($request->all()), 
             Response::HTTP_CREATED
         );
 
