@@ -9,7 +9,7 @@ use App\Repositories\AccountRepository;
 
 class AccountController extends Controller
 {
-    protected $accountRepository;
+    private $accountRepository;
 
     public function __construct(AccountRepository $accountRepository)
     {
