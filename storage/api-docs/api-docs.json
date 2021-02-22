@@ -8,7 +8,7 @@
         "/api/account": {
             "get": {
                 "tags": [
-                    "Accoounts"
+                    "Accounts"
                 ],
                 "description": "Returns a Collection of Accounts",
                 "operationId": "App\\Http\\Controllers\\AccountController::index",
@@ -20,7 +20,7 @@
             },
             "post": {
                 "tags": [
-                    "Accoounts"
+                    "Accounts"
                 ],
                 "description": "Create a Account",
                 "operationId": "App\\Http\\Controllers\\AccountController::store",

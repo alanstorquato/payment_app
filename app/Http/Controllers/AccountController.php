@@ -18,7 +18,7 @@ class AccountController extends Controller
 
     /**
      * @OA\Get(
-     *     tags={"Accoounts"},
+     *     tags={"Accounts"},
      *     path="/api/account",
      *     description="Returns a Collection of Accounts",
      *     @OA\Response(response="200", description="A list with accounts"),
@@ -35,7 +35,7 @@ class AccountController extends Controller
 
     /**
     * @OA\Post(
-    *   tags={"Accoounts"},
+    *   tags={"Accounts"},
     *   path="/api/account",
     *   description="Create a Account",
     *   @OA\RequestBody(
