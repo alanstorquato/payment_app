@@ -12,6 +12,11 @@ class AccountRepository
         return Account::all();    
     }
 
+    public function find(int $accountId): Account
+    {
+        return Account::find($accountId);    
+    }
+
     public function create(array $data): Account
     {
         return Account::create($data);
