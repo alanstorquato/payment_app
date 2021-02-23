@@ -23,31 +23,9 @@ class TransactionServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $user = User::create([
-            'name' => 'Teste 1',
-            'email' => 'user1@teste.com',
-            'password' =>  '123',
-        ]);
 
-        $user2 = User::create([
-            'name' => 'Teste 1',
-            'email' => 'user2@teste.com',
-            'password' =>  '123',
-        ]);
-
-        $this->userAccount =  Account::create([
-            'type' => 'user',
-            'document' => '01234567890',
-            'balance' => 2000,
-            'user_id' => $user->id
-        ]);
-
-        $this->userStore =  Account::create([
-            'type' => 'store',
-            'document' => '73003359000196',
-            'balance' => 2000,
-            'user_id' => $user2->id
-        ]);
+        $this->userAccount = Account::factory()->create();
+        $this->userStore =  Account::factory()->create();
   
         $this->transactionService = new TransactionService(
             $this->getMockAuthorizeTransactionSuccess(),
@@ -73,6 +51,9 @@ class TransactionServiceTest extends TestCase
 
     public function testTransactionValues()
     {
+        $this->userAccount->balance = 2000;
+        $this->userStore->balance = 2000;
+
         $this->transactionService->transaction(200, $this->userAccount, $this->userStore);
         $this->assertEquals(1800, Account::find($this->userAccount->id)->balance);
         $this->assertEquals(2200, Account::find($this->userStore->id)->balance);
