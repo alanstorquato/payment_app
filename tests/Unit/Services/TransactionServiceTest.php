@@ -4,6 +4,8 @@ namespace Tests\Unit\Services;
 
 use App\Models\Account;
 use App\Models\User;
+use App\Repositories\AccountRepository;
+use App\Repositories\TransactionRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Services\TransactionService;
@@ -47,7 +49,11 @@ class TransactionServiceTest extends TestCase
             'user_id' => $user2->id
         ]);
   
-        $this->transactionService = new TransactionService($this->getMockAuthorizeTransactionSuccess());
+        $this->transactionService = new TransactionService(
+            $this->getMockAuthorizeTransactionSuccess(),
+            new TransactionRepository(),
+            new AccountRepository()
+        );
     }
 
     public function getMockAuthorizeTransactionSuccess()
@@ -72,21 +78,19 @@ class TransactionServiceTest extends TestCase
         $this->assertEquals(2200, Account::find($this->userStore->id)->balance);
     }
 
-    public function testPerformTransactionFail() {
-      
+    public function testPerformTransactionFail()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Valor da transferencia maior que saldo do pagador');
 
         $this->transactionService->transaction(3000, $this->userAccount, $this->userStore);
-
     }
 
-    public function testPerformTransactionStore() {
-      
+    public function testPerformTransactionStore()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Lojista não pode realizar transferencia');
 
         $this->transactionService->transaction(3000, $this->userStore, $this->userAccount);
-
     }
 }

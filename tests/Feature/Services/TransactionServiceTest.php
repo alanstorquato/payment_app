@@ -5,10 +5,13 @@ namespace Tests\Service\Feature;
 use App\Models\Account;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Repositories\AccountRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Services\TransactionService;
 use App\Services\AuthorizeTransaction;
+use App\Repositories\TransactionRepository;
+
 use Tests\TestCase;
 
 class TransactionServiceTest extends TestCase
@@ -47,11 +50,19 @@ class TransactionServiceTest extends TestCase
             'balance' => 2000,
             'user_id' => $user2->id
         ]);
+        
+        $this->transactionService = new TransactionService(
+            $this->getMockAuthorizeTransactionSuccess(),
+            new TransactionRepository(),
+            new AccountRepository
+        );
+    }
 
+    public function getMockAuthorizeTransactionSuccess()
+    {
         $authorizeTransaction = $this->createMock(AuthorizeTransaction::class);
         $authorizeTransaction->method('verifyAuthorizeTransaction')->willReturn(true);
-        
-        $this->transactionService = new TransactionService($authorizeTransaction);
+        return $authorizeTransaction;
     }
 
     public function testInsertTransactionTable()
