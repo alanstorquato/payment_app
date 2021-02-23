@@ -9,7 +9,7 @@ class TransactionRepository
 {
     public function all(): Collection
     {
-        return Transaction::all();    
+        return Transaction::all();
     }
 
     public function create(array $data): Transaction
@@ -17,4 +17,8 @@ class TransactionRepository
         return Transaction::create($data);
     }
 
+    public function update(array $data, $id)
+    {
+        return Transaction::find($id)->update($data);
+    }
 }

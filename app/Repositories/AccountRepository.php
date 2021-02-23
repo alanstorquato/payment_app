@@ -9,12 +9,12 @@ class AccountRepository
 {
     public function all(): Collection
     {
-        return Account::all();    
+        return Account::all();
     }
 
     public function find(int $accountId): Account
     {
-        return Account::find($accountId);    
+        return Account::find($accountId);
     }
 
     public function create(array $data): Account
@@ -22,4 +22,8 @@ class AccountRepository
         return Account::create($data);
     }
 
+    public function update(array $data, $id)
+    {
+        return Account::find($id)->update($data);
+    }
 }
