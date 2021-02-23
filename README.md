@@ -4,11 +4,16 @@
 Este projeto tem como intuito simular uma api de transferência entre contas, 
 onde contas comuns podem fazer transferência entre elas e contas do tipo lojista(store) apenas podem receber transferências 
 
-## Começando
+## Pré-requisito
 
 Para executar o projeto, será necessário instalar os seguintes programas:
 
 - [Docker](https://docs.docker.com/compose/install/)
+
+## Iniciando
+```
+docker-compose up -d
+```
 
 ## Testes
 
