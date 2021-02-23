@@ -73,24 +73,8 @@ class TransactionServiceTest extends TestCase
 
     public function testTransactionValues()
     {
-        $transaction  = $this->transactionService->transaction(200, $this->userAccount, $this->userStore);
+        $this->transactionService->transaction(200, $this->userAccount, $this->userStore);
         $this->assertEquals(1800, Account::find($this->userAccount->id)->balance);
         $this->assertEquals(2200, Account::find($this->userStore->id)->balance);
-    }
-
-    public function testPerformTransactionFail()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Valor da transferencia maior que saldo do pagador');
-
-        $this->transactionService->transaction(3000, $this->userAccount, $this->userStore);
-    }
-
-    public function testPerformTransactionStore()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Lojista não pode realizar transferencia');
-
-        $this->transactionService->transaction(3000, $this->userStore, $this->userAccount);
     }
 }

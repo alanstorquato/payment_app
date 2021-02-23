@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MinBalance;
+use App\Rules\Store;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class PostTransactionRequest extends FormRequest
 {
@@ -24,11 +28,10 @@ class PostTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required|numeric',
-            'payer_id' => 'required',
+            'value' => ['required', 'numeric', new MinBalance($this->payer_id)],
+            'payer_id' => ['required', new Store],
             'payee_id' => 'required',
         ];
-        
     }
 
     public function messages()
@@ -39,5 +42,10 @@ class PostTransactionRequest extends FormRequest
             'payer_id.required' => 'Campo payer_id requerido',
             'payee_id.required' => 'Campo payee_id requerido',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['error' => $validator->errors()], 405));
     }
 }

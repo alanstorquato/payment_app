@@ -40,7 +40,7 @@ class TransactionControllerTest extends TestCase
         ]);
 
         $this->userStore =  Account::create([
-            'type' => 'user',
+            'type' => 'store',
             'document' => '01234567890',
             'balance' => 2000,
             'user_id' => $user2->id
@@ -68,7 +68,7 @@ class TransactionControllerTest extends TestCase
     }
 
 
-    public function testPostTransactionStatusCodeNotAllowed()
+    public function testPostUserBalanceLessTransaction()
     {
         $this->post = [
             'value' => 3000,
@@ -83,5 +83,18 @@ class TransactionControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
     }
 
+    public function testPostStoreCanNotExecuteTransaction()
+    {
+        $this->post = [
+            'value' => 200,
+            'payer_id' => $this->userStore->id,
+            'payee_id' => $this->userAccount->id
+        ];
 
+        $this->withoutExceptionHandling();
+
+        $response = $this->post('/api/transaction', $this->post);
+
+        $response->assertStatus(Response::HTTP_METHOD_NOT_ALLOWED);
+    }
 }

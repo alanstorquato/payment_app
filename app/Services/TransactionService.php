@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Jobs\TransactionMadeMessage;
 use App\Models\Account;
-use App\Models\Transaction;
 use App\Repositories\AccountRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\AuthorizeTransaction;
@@ -29,8 +28,6 @@ class TransactionService
 
     public function transaction($value, Account $payer, Account $payee)
     {
-        $this->validateTransaction($payer, $value);
-
         $payer->setAttribute('balance', $payer->balance - $value);
         $payee->setAttribute('balance', $payee->balance + $value);
         
@@ -51,16 +48,5 @@ class TransactionService
         }
 
         return $transaction;
-    }
-
-    private function validateTransaction($payer, $value)
-    {
-        if ($payer->type === 'store') {
-            throw new \Exception('Lojista não pode realizar transferencia');
-        }
-
-        if ($payer->balance < $value) {
-            throw new \Exception('Valor da transferencia maior que saldo do pagador');
-        }
     }
 }
