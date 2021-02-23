@@ -10,9 +10,19 @@ Para executar o projeto, será necessário instalar os seguintes programas:
 
 - [Docker](https://docs.docker.com/compose/install/)
 
+- [Laravel](https://laravel.com/docs/8.x)
+
 ## Iniciando
+
+# instalar as dependencias
+
 ```
-docker-compose up -d
+    composer install
+```
+# copiar env de 
+
+```
+    cp .env.example .env
 ```
 
 ## Testes
