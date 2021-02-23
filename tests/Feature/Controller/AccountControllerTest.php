@@ -9,7 +9,6 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Account;
 
-
 class AccountControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -20,11 +19,7 @@ class AccountControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::create([
-            'name' => 'Teste 1',
-            'email' => 'user1@teste.com',
-            'password' =>  '123',
-        ]);
+        $this->user = Account::factory()->create();
     }
 
     public function testGetUserStatusCodeSuccess()

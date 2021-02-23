@@ -25,36 +25,14 @@ class TransactionServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $user = User::create([
-            'name' => 'Teste 1',
-            'email' => 'user1@teste.com',
-            'password' =>  '123',
-        ]);
 
-        $user2 = User::create([
-            'name' => 'Teste 1',
-            'email' => 'user2@teste.com',
-            'password' =>  '123',
-        ]);
-
-        $this->userAccount =  Account::create([
-            'type' => 'user',
-            'document' => '012567890',
-            'balance' => 2000,
-            'user_id' => $user->id
-        ]);
-
-        $this->userStore =  Account::create([
-            'type' => 'user',
-            'document' => '01234567890',
-            'balance' => 2000,
-            'user_id' => $user2->id
-        ]);
-        
+        $this->userAccount = Account::factory()->create();
+        $this->userStore =  Account::factory()->create();
+  
         $this->transactionService = new TransactionService(
             $this->getMockAuthorizeTransactionSuccess(),
             new TransactionRepository(),
-            new AccountRepository
+            new AccountRepository()
         );
     }
 
