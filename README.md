@@ -33,7 +33,7 @@ Para rodar os testes, utilize o comando abaixo:
 docker-compose exec app vendor/bin/phpunit tests
 ```
 
-## Testes
+## Documentação API
 
 Para visualizar a documentação da API sera necessário acessar o link  a baixo:
 
