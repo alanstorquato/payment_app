@@ -24,7 +24,7 @@ copiar env de exemplo
 ```
     cp .env.example .env
 ```
-iniciando projeto
+iniciar projeto
 
 ```
     docker-compose up -d
