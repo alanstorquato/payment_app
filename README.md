@@ -14,12 +14,12 @@ Para executar o projeto, será necessário instalar os seguintes programas:
 
 ## Iniciando
 
-# instalar as dependencias
+### instalar as dependencias
 
 ```
     composer install
 ```
-# copiar env de 
+### copiar env de 
 
 ```
     cp .env.example .env
