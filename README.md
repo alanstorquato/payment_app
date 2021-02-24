@@ -24,10 +24,32 @@ copiar env de exemplo
 ```
     cp .env.example .env
 ```
+executar docker buil
+
+```
+    docker-compose build
+```
+
 iniciar projeto
 
 ```
     docker-compose up -d
+```
+
+executar migrations
+
+```
+    php artisan migrate
+```
+
+## Database seeds
+
+** Rodar os seeds vai criar usuarios e contas do tipo user e store  
+
+Para rodar os testes, utilize o comando abaixo:
+
+```
+    php artisan db:seed
 ```
 
 ## Testes
