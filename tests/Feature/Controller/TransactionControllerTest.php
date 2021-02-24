@@ -21,7 +21,12 @@ class TransactionControllerTest extends TestCase
         parent::setUp();
 
         $this->userAccount = Account::factory()->create();
+        $this->userAccount->type = 'user';
+        $this->userAccount->save();
+        
         $this->userStore =  Account::factory()->create();
+        $this->userStore->type = 'store';
+        $this->userStore->save();
     }
 
     public function testGetTransactionStatusCodeSuccess()

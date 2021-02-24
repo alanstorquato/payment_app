@@ -9,12 +9,6 @@ use Faker\Factory as Faker;
 
 class AccountFactory extends Factory
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->faker = Faker::create('pt_BR');
-    }
     /**
      * The name of the factory's corresponding model.
      *
@@ -30,8 +24,8 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'type' => 'user',
-            'document' => $this->faker->cpf(),
+            'type' => $this->faker->randomElement(['user' ,'store']),
+            'document' => $this->faker->numerify('###########'),
             'balance' => $this->faker->randomNumber(5),
             'user_id' => User::factory()->create(),
         ];

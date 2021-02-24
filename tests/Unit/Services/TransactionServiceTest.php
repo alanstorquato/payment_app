@@ -3,7 +3,6 @@
 namespace Tests\Unit\Services;
 
 use App\Models\Account;
-use App\Models\User;
 use App\Repositories\AccountRepository;
 use App\Repositories\TransactionRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,7 +24,12 @@ class TransactionServiceTest extends TestCase
         parent::setUp();
 
         $this->userAccount = Account::factory()->create();
+        $this->userAccount->type = 'user';
+        $this->userAccount->save();
+        
         $this->userStore =  Account::factory()->create();
+        $this->userStore->type = 'store';
+        $this->userStore->save();
   
         $this->transactionService = new TransactionService(
             $this->getMockAuthorizeTransactionSuccess(),
