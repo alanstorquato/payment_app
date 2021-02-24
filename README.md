@@ -19,7 +19,7 @@ Para executar o projeto, será necessário instalar os seguintes programas:
 ```
     composer install
 ```
-### copiar env de 
+### copiar env de exemplo
 
 ```
     cp .env.example .env
