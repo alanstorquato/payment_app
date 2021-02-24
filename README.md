@@ -14,15 +14,20 @@ Para executar o projeto, será necessário instalar os seguintes programas:
 
 ## Iniciando
 
-### instalar as dependencias
+instalar as dependencias
 
 ```
     composer install
 ```
-### copiar env de exemplo
+copiar env de exemplo
 
 ```
     cp .env.example .env
+```
+iniciando projeto
+
+```
+    docker-compose up -d
 ```
 
 ## Testes
