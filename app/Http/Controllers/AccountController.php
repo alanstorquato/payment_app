@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\PostAccountRequest;
 use App\Repositories\AccountRepository;
+use Illuminate\Http\JsonResponse;
 
 class AccountController extends Controller
 {
@@ -25,7 +26,7 @@ class AccountController extends Controller
      * ),
      *
     */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(
             $this->accountRepository->all(),
@@ -52,7 +53,7 @@ class AccountController extends Controller
     *   @OA\Response(response="201", description="account created")
     * )
     */
-    public function store(PostAccountRequest $request)
+    public function store(PostAccountRequest $request): JsonResponse
     {
         return response()->json(
             $this->accountRepository->create($request->all()),
