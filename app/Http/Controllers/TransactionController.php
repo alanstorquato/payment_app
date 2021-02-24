@@ -7,6 +7,7 @@ use App\Repositories\AccountRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class TransactionController extends Controller
@@ -29,7 +30,7 @@ class TransactionController extends Controller
      * ),
      *
     */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(
             $this->transactionRepository->all(),
@@ -56,7 +57,7 @@ class TransactionController extends Controller
     *   @OA\Response(response="405", description="transactions not allowed")
     * )
     */
-    public function store(PostTransactionRequest $request, TransactionService $transactionService)
+    public function store(PostTransactionRequest $request, TransactionService $transactionService): JsonResponse
     {
         try {
             $transction = $transactionService->transaction(

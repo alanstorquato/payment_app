@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostUserRequest;
 use App\Repositories\UserRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,7 +26,7 @@ class UserController extends Controller
      * ),
      *
     */
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json(
             $this->userRepository->all(),
@@ -51,7 +52,7 @@ class UserController extends Controller
     *   @OA\Response(response="201", description="user created")
     * )
     */
-    public function store(PostUserRequest $request)
+    public function store(PostUserRequest $request): JsonResponse
     {
         return response()->json(
             $this->userRepository->create($request->all()),
